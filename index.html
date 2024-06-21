@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+        <script type = "text/javascript" src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script type = "text/javascript" src = "https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link rel="stylesheet"  href="styles/main.css">
+        <embed loop="true" src="sound.wav" hidden="true" type="video/quicktime"></embed>
+    </head>
+    <body>
+        <embed src="audio/music.m4a" loop="true" autostart="true" width="2" height="0">
+        <div id="header">
+            Health: <progress value="0" max="20" id="progressBar"></progress><br><br>
+            Time Remaining: <span id="time"></span><br><br>
+            Ammo: <span id="am"></span>
+        </div>
+        <div id="container">
+
+            <marquee behavior="scroll" direction="right" scrollamount="40" id="marquee">
+                <div class="target"></div>
+                <div class="target"></div>
+            </marquee>
+            <marquee behavior="scroll" direction="left" scrollamount="70" id="marquee">
+                <div class="target two"></div>
+                <div class="target two"></div>
+            </marquee>
+            <marquee behavior="scroll" direction="right" scrollamount="60" id="marquee">
+                <div class="target three"></div>
+                <div class="target three"></div>
+            </marquee>
+            <div class="gun"></div>
+            
+        </div>
+
+        <div class="container-over" style="display: none;">
+            Your Score is <span id="score"></span><br>
+            <button onClick="window.location.reload();" id="btn">Play again</button>
+        </div>   
+    </body>
+
+    <script>
+        
+        var ammo = 6;
+        var targetHit = 0;
+        var totalTime = 20;
+
+        imageClicked();
+        targetKilled();
+        gunfire();
+
+        var timer = setInterval(function() {
+            totalTime--;
+            updateState();
+        }, 1000)
+
+        var ammoTotal = setInterval(function() {
+            updateState();
+        })
+
+        $('#container').click(function(){
+            if(ammo>0){
+            ammo-=1;
+            }else{
+                alert("please reload the gun.");
+                alert.fadeIn(600);
+            }
+            updateState();
+        })
+
+        $('.target').click(function() {
+            targetHit+=1;
+            updateState();
+            $(this).fadeOut(30).fadeIn(30).fadeOut(30).fadeIn(30)
+            $(this).animate({top: "+=800px"}, 1000, "linear");
+        });
+
+        function endgame() {
+            clearInterval(timer);
+            $('#container').hide();
+            $(document).addClass("container-over").show();
+            $('.container-over').css('display','block');
+            document.getElementById("score").innerHTML = targetHit;
+        }
+
+        function updateState() {
+            document.getElementById("progressBar").value = totalTime;
+            document.getElementById("time").innerHTML = totalTime + " seconds";
+            if(ammo>=0){
+            document.getElementById("am").innerHTML = ammo;
+            }
+            if (totalTime <= 0  || targetHit>=6) {
+                endgame();
+            }
+        }
+
+        function imageClicked() {
+            $(document).ready(function(){
+                $('#container').on("mousedown", function(e){
+                    if(e.which==3){
+                        if(ammo<=0){
+                        ammo+=6;
+                        const audio = new Audio("audio/gun_reload.mp3");
+                        audio.play();
+                        }
+                    }else if(ammo>0){
+                        $('.gun').addClass('click');
+                        gunfire();
+                    }
+                })
+                $('#container').on("mouseup", function(){
+                $('.gun').removeClass('click');
+                })
+            })
+        }
+
+        function targetKilled() {
+            $(document).ready(function(){
+                $('.target').on("click", function(){
+                $(this).addClass('dead');
+                })
+            })
+        }
+
+        function gunfire() {
+            const audio = new Audio("audio/gunfire.m4a");
+            audio.play();
+        }
+        $(document).bind("contextmenu",function(e){
+         return false;
+        });
+      
+
+    </script>
+</html>

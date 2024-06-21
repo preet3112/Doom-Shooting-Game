@@ -1,0 +1,144 @@
+@font-face {
+    font-family: 'Demon-Letter';
+    src: url(../fonts/Demon-Letter.ttf);
+    font-style: normal;
+    font-weight: 100;
+}
+
+html {
+    background-image: url(../images/wall-main.jpg);
+    display: inline-block; 
+    overflow: hidden;
+}
+
+body {
+    user-select: none;
+    user-zoom: none;
+    height: 100%;
+    
+}
+
+#header {
+    margin: 10px 0 0 5px;
+    color:white;
+    font-family: Demon-Letter;
+    text-shadow: 4px 4px #000000;
+    display: inline-block;
+    position: relative;
+    width: 100%; 
+    vertical-align: auto;
+}
+
+progress[value] {
+    border-radius: 2px;
+    color:green;  
+}
+
+progress[value]::-webkit-progress-value{
+    background-color:green;
+    margin-top: -5px;
+}
+
+#container {
+    width: 100%;
+    background-image: url(../images/wall.png);  
+    background-size: 100%;
+    cursor: crosshair;
+}
+
+#marquee {
+    margin: 10px 0 50px 0;
+	background: none;
+    cursor: crosshair;
+    width: 100%;
+}
+
+.target {
+    align-content: center;
+    padding-left: 100px;
+    height: 120px;
+    width: 120px;
+    display: inline-block;
+    position: relative;
+    background-image: url(../images/caconew.gif);
+    background-color: transparent;
+    background-repeat: no-repeat;
+}
+
+.target.two {
+    margin-left: 300px;
+}
+
+.target.three {
+    margin-left: 150px;
+}
+
+.target.dead {
+    background-image: url(../images/caco-death.png);
+}
+
+div {
+    background: none;
+    display: inline-block; 
+}
+
+.container-over {
+    color: white;
+    font-family: Demon-Letter;
+    font-size: 40px;
+    text-shadow: 4px 4px #000000;
+    font-weight: bolder;
+    align-content: center;
+    text-align: center;
+    height: 600px;
+    width: 100%;
+    background: none;
+    display: none;
+    margin-top: 100px;
+}
+
+.container-over p {
+    align-content: center;
+    display: block;
+    font-size: xx-large;
+    color: black;
+    display: inline;
+}
+
+#btn {
+    font-family: Demon-Letter;
+    padding-top: 7px;
+    margin-top: 100px;
+    height: 30px;
+    width: 100px;
+    background-color: #FFFFFF;
+    color: #000000;
+    border: 2px #FFFFFF solid;
+    border-radius: 25px;
+    text-decoration: none;
+}
+
+#btn:hover {
+    background-color: #000000;
+    color: #FFFFFF;
+}
+
+.gun{
+    background:url(../images/gun.png) no-repeat;
+    width: 200px;
+    height: 250px;
+    display: inline-block;
+    position: relative;
+    z-index: 15;
+    top: 100%;
+    left: 50%;
+    margin: -200px 0 -50px -150px;
+}
+
+.gun.click{
+    background:url(../images/gun-fired.png) no-repeat;
+}
+.alert {
+    opacity: 1;
+    transition: opacity 0.6s; /* 600ms to fade out */
+  }
